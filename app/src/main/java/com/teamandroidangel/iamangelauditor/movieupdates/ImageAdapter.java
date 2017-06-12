@@ -4,54 +4,57 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 /**
  * Created by iamangelauditor on 07/06/2017.
  */
 
-public class ImageAdapter extends BaseAdapter {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
-    private Context mContext;
-    private final int[] Imageid;
+    private ArrayList<MoviePreferences> movie;
+    private Context context;
 
-    public ImageAdapter(Context c, int[] Imageid) {
+    public ImageAdapter(Context context,ArrayList<MoviePreferences> movie){
+        this.context = context;
+        this.movie = movie;
 
-        mContext = c;
-        this.Imageid = Imageid;
-    }
-    @Override
-    public int getCount() {
-        return Imageid.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return position;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater)
-                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View gridView;
-        if (convertView == null) {
-            gridView = inflater.inflate(R.layout.grid_layout, null);
-            ImageView imageView = (ImageView)
-                    gridView.findViewById(R.id.grid_item_image_movie);
-            imageView.setImageResource(Imageid[position]);
-        } else {
-            gridView = (View) convertView;
-        }
-        return gridView;
-        }
 }
+    @Override
+    public ImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
 
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.grid_layout, viewGroup, false);
+        return new ViewHolder(view);
+
+    }
+
+    @Override
+    public void onBindViewHolder(ImageAdapter.ViewHolder viewHolder, int i) {
+        viewHolder.title_movie.setText(movie.get(i).getMovie_name());
+        Picasso.with(context).load(movie.get(i).getMovie_image_url()).resize(185,278).into(viewHolder.grid_image_movie);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return movie.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        private TextView title_movie;
+        private ImageView grid_image_movie;
+        public ViewHolder(View view) {
+            super(view);
+
+            title_movie = (TextView)view.findViewById(R.id.title_movie);
+            grid_image_movie = (ImageView) view.findViewById(R.id.grid_image_movie);
+        }
+    }
+}
