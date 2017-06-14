@@ -1,27 +1,46 @@
 package com.teamandroidangel.iamangelauditor.movieupdates;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String LOG_TAG = MainActivity.class.getName();
 
 
+    private final String movie_name[] = {
+            "Popular Movies",
+
+    };
+    private final String movie_image_url[] = {
+            "https://api.themoviedb.org/3/movie/popular?api_key="
+
+
+// http://image.tmdb.org/t/p/w185/
+
+    };
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             initViews();
-        }
+
+
+
+}
     private void initViews(){
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -29,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         ArrayList<MoviePreferences> moviePreferences = prepareData();
-        ImageAdapter adapter = new ImageAdapter(getApplicationContext(),moviePreferences);
-        recyclerView.setAdapter(adapter);
+        ImageAdapter mAdapter = new ImageAdapter(getApplicationContext(),moviePreferences);
+        recyclerView.setAdapter(mAdapter);
+
 
     }
     private ArrayList<MoviePreferences> prepareData() {
