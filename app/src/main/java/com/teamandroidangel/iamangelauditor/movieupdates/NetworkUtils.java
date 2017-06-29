@@ -3,6 +3,11 @@ package com.teamandroidangel.iamangelauditor.movieupdates;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +23,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * Created by iamangelauditor on 14/06/2017.
  */
@@ -30,102 +41,109 @@ public class NetworkUtils {
     private NetworkUtils() {
     }
 
-    public static List<MoviePreferences> prepareData(String requestUrl) {
+    public static void getMovieDetail(final String baseURL, final int movieId, final CallBackHandler handler){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        URL url = createUrl(requestUrl);
+        // let's instantiate a service from the interface defined MovieDBOrgService
+        MovieDBOrgService service = retrofit.create(MovieDBOrgService.class);
 
-        String jsonResponse = null;
-        try {
-            jsonResponse = makeHttpRequest(url);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+        // call list Popular movies
+        Call<JsonObject> call = service.getMovieDetail(new Integer(movieId).toString());
 
-        }
-        return extractFeatureFromJson(jsonResponse);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                //IMPORTANT THIS IS THE PART THAT DOES THE PARSING
+                JsonObject resp = response.body().getAsJsonObject("results");
+                handler.onComplete(convertJsonToMovieDetail(resp, baseURL));
+
+            }
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                handler.onFail(t);
+            }
+        });
     }
 
-    private static URL createUrl(String stringUrl) {
-        URL url = null;
-        try {
-            url = new URL(stringUrl);
-        } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Problem building the URL ", e);
-        }
-        return url;
+
+    public static void getMovieList(final String baseURL,final CallBackHandler handler) {
+
+        // let's use retrofit for simplicity
+        // a retrofit api call builder needs the base url
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // let's instantiate a service from the interface defined MovieDBOrgService
+        MovieDBOrgService service = retrofit.create(MovieDBOrgService.class);
+
+        // call list Popular movies
+        Call<JsonObject> call = service.listPopularMovies();
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            //IMPORTANT THIS IS THE PART THAT DOES THE PARSING
+                JsonArray resp = response.body().getAsJsonArray("results");
+                handler.onComplete(convertJsonToMovieList(resp, baseURL));
+
+            }
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                handler.onFail(t);
+            }
+        });
     }
+    private static MovieData convertJsonToMovieDetail(JsonObject movie, String baseURL){
 
-    private static String makeHttpRequest(URL url) throws IOException {
-        String jsonResponse = "";
+        MovieData mov = new MovieData();
 
-        // If the URL is null, then return early.
-        if (url == null) {
-            return jsonResponse;
-        }
-        HttpURLConnection urlConnection = null;
-        InputStream inputStream = null;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-            if (urlConnection.getResponseCode() == 200) {
-                inputStream = urlConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);
-            } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
-            }
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the Popular JSON results.", e);
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }
-        return jsonResponse;
+        mov.setMovie_name(movie.get("title").getAsString());
+
+        // the poster image url given is only partial and does not contain the base url, so we will combine them
+        String posterPath = movie.get("poster_path").getAsString();
+        String movieImageUrl = baseURL+posterPath;
+
+        mov.setMovie_image_url(movieImageUrl);
+
+        return mov;
+
     }
+    private static ArrayList<MovieData> convertJsonToMovieList(JsonArray movies, String baseURL) {
 
-    private static String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-        return output.toString();
-    }
+        ArrayList<MovieData> movs = new ArrayList<>();
 
-    private static List<MoviePreferences> extractFeatureFromJson(String popularMovieJSON) {
-        if (TextUtils.isEmpty(popularMovieJSON)) {
-            return null;
-        }
-        List<MoviePreferences> moviePreferences = new ArrayList<>();
         try {
-            JSONObject baseJsonResponse = new JSONObject(popularMovieJSON);
 
-            JSONArray moviePreferencesArray = baseJsonResponse.getJSONArray("features");
-            for (int i = 0; i < moviePreferencesArray.length(); i++) {
-                JSONObject currentMoviePreferences = moviePreferencesArray.getJSONObject(i);
+            for (JsonElement pa : movies) {
 
-                JSONObject properties = currentMoviePreferences.getJSONObject("properties");
+                MovieData mov = new MovieData();
 
-                String url = properties.getString("url");
-                MoviePreferences moviePreferences1 = new MoviePreferences();
-                moviePreferences.add(moviePreferences1);
+                JsonObject props = pa.getAsJsonObject();
+
+
+                //to get a property of the json use props.get("name_of_property").getAsString or getAs whatever data type like getAsInt
+
+                mov.setMovie_name(props.get("title").getAsString());
+
+                // the poster image url given is only partial and does not contain the base url, so we will combine them
+                String posterPath = props.get("poster_path").getAsString();
+                String movieImageUrl = baseURL+posterPath;
+
+                mov.setMovie_image_url(movieImageUrl);
+
+                movs.add(mov);
             }
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             e.printStackTrace();
 
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the movie JSON results", e);
         }
-        return moviePreferences;
+        return movs;
 
     }
 }

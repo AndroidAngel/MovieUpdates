@@ -12,18 +12,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import static android.widget.ImageView.ScaleType.CENTER_CROP;
-
 /**
  * Created by iamangelauditor on 07/06/2017.
  */
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
-    private ArrayList<MoviePreferences> movie;
+    private ArrayList<MovieData> movie;
     private Context context;
 
-    public ImageAdapter(Context context,ArrayList<MoviePreferences> movie){
+    public ImageAdapter(Context context,ArrayList<MovieData> movie){
         this.context = context;
         this.movie = movie;
     }
@@ -39,7 +37,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ImageAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.title_movie.setText(movie.get(i).getMovie_name());
         Picasso.with(context)
                 .load(movie.get(i).getMovie_image_url())
                 .resize(50,50)
@@ -52,13 +49,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title_movie;
         private ImageView grid_image_movie;
 
         public ViewHolder(View view) {
             super(view);
 
-            title_movie = (TextView) view.findViewById(R.id.title_movie);
             grid_image_movie = (ImageView) view.findViewById(R.id.grid_image_movie);
         }
 
