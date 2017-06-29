@@ -7,63 +7,65 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.teamandroidangel.iamangelauditor.movieupdates.R.id.list_movie;
+
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
+    private final String API_KEY = "f05f845199266c1ce950bc8a260a0258";
 
-    private final String movie_name[] = {
-            "Popular Movies",
-
-    };
-    private final String movie_image_url[] = {
-            "https://api.themoviedb.org/3/movie/popular?api_key="
-
-
-// http://image.tmdb.org/t/p/w185/
-
-    };
+    private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            initViews();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initViews();
+    }
 
+    private void initViews() {
 
+        final ListView listView = (ListView) findViewById(list_movie);
+        Log.i(MainActivity.LOG_TAG,"list view created");
 
-}
-    private void initViews(){
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(layoutManager);
+        // we will delegate preparing data on this utility class - also this will not be synchronous
+        NetworkUtils.getMovieList(this.MOVIES_ENDPOINT, new CallBackHandler() {
+            @Override
+            public void onComplete(ArrayList<MovieData> movies) {
 
-        ArrayList<MoviePreferences> moviePreferences = prepareData();
-        ImageAdapter mAdapter = new ImageAdapter(getApplicationContext(),moviePreferences);
-        recyclerView.setAdapter(mAdapter);
+                //somethign wrong with the imageadapter
+                //ImageAdapter mAdapter = new ImageAdapter(getApplicationContext(),movies);
+                //recyclerView.setAdapter(mAdapter);
 
+                // this list contains all your movies
+                ArrayList<MovieData> movs = movies;
+            }
+
+           @Override
+           public void onComplete(MovieData movieData) {
+
+                MovieData mov = movieData;
+           }
+            @Override
+            public void onFail(Throwable t) {
+
+            }
+        });
 
     }
-    private ArrayList<MoviePreferences> prepareData() {
 
-        ArrayList<MoviePreferences> movie_Preferences = new ArrayList<>();
-        for (int i = 0; i < movie_name.length; i++) {
-            MoviePreferences moviePreferences = new MoviePreferences();
-            moviePreferences.setMovie_name(movie_name[i]);
-            moviePreferences.setMovie_image_url(movie_image_url[i]);
-            movie_Preferences.add(moviePreferences);
-        }
-        return movie_Preferences;
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+
 
 
 
