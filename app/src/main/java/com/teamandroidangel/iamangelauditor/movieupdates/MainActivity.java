@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 
+    private     MovieDataAdapter mAdapter;
+
+    private final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +42,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
 
-        final ListView listView = (ListView) findViewById(list_movie);
+        final GridView gridView = (GridView) findViewById(list_movie);
+        mAdapter = new MovieDataAdapter(this, new ArrayList<MovieData>());
+        gridView.setAdapter(mAdapter);
+
         Log.i(MainActivity.LOG_TAG,"list view created");
 
+
+
         // we will delegate preparing data on this utility class - also this will not be synchronous
-        NetworkUtils.getMovieList(this.MOVIES_ENDPOINT, new CallBackHandler() {
+        NetworkUtils.getMovieList(this.MOVIES_ENDPOINT,this.IMAGE_BASE_URL, new CallBackHandler() {
             @Override
             public void onComplete(ArrayList<MovieData> movies) {
+
+
 
                 //somethign wrong with the imageadapter
                 //ImageAdapter mAdapter = new ImageAdapter(getApplicationContext(),movies);
@@ -51,12 +63,21 @@ public class MainActivity extends AppCompatActivity {
 
                 // this list contains all your movies
                 ArrayList<MovieData> movs = movies;
+                mAdapter.clear();
+                if (movs != null && !movs.isEmpty()) {
+                    mAdapter.addAll(movs);
+                    Log.i(MainActivity.LOG_TAG,"movie retrieved");
+
+
+                }
+
+
             }
 
            @Override
            public void onComplete(MovieData movieData) {
 
-                MovieData mov = movieData;
+                MovieData movs = movieData;
            }
             @Override
             public void onFail(Throwable t) {

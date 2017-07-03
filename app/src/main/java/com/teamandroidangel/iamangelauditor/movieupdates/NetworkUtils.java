@@ -41,7 +41,7 @@ public class NetworkUtils {
     private NetworkUtils() {
     }
 
-    public static void getMovieDetail(final String baseURL, final int movieId, final CallBackHandler handler){
+    public static void getMovieDetail(final String baseURL, final String imageBaseURL,final int movieId, final CallBackHandler handler){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -58,7 +58,7 @@ public class NetworkUtils {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 //IMPORTANT THIS IS THE PART THAT DOES THE PARSING
                 JsonObject resp = response.body().getAsJsonObject("results");
-                handler.onComplete(convertJsonToMovieDetail(resp, baseURL));
+                handler.onComplete(convertJsonToMovieDetail(resp, imageBaseURL));
 
             }
             @Override
@@ -69,7 +69,7 @@ public class NetworkUtils {
     }
 
 
-    public static void getMovieList(final String baseURL,final CallBackHandler handler) {
+    public static void getMovieList(final String baseURL,final String imageBaseURL, final CallBackHandler handler) {
 
         // let's use retrofit for simplicity
         // a retrofit api call builder needs the base url
@@ -89,7 +89,7 @@ public class NetworkUtils {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
             //IMPORTANT THIS IS THE PART THAT DOES THE PARSING
                 JsonArray resp = response.body().getAsJsonArray("results");
-                handler.onComplete(convertJsonToMovieList(resp, baseURL));
+                handler.onComplete(convertJsonToMovieList(resp, imageBaseURL));
 
             }
             @Override
@@ -98,7 +98,7 @@ public class NetworkUtils {
             }
         });
     }
-    private static MovieData convertJsonToMovieDetail(JsonObject movie, String baseURL){
+    private static MovieData convertJsonToMovieDetail(JsonObject movie, String imageBaseURL){
 
         MovieData mov = new MovieData();
 
@@ -106,14 +106,14 @@ public class NetworkUtils {
 
         // the poster image url given is only partial and does not contain the base url, so we will combine them
         String posterPath = movie.get("poster_path").getAsString();
-        String movieImageUrl = baseURL+posterPath;
+        String movieImageUrl = imageBaseURL+posterPath;
 
         mov.setMovie_image_url(movieImageUrl);
 
         return mov;
 
     }
-    private static ArrayList<MovieData> convertJsonToMovieList(JsonArray movies, String baseURL) {
+    private static ArrayList<MovieData> convertJsonToMovieList(JsonArray movies, String imageBaseURL) {
 
         ArrayList<MovieData> movs = new ArrayList<>();
 
@@ -132,7 +132,7 @@ public class NetworkUtils {
 
                 // the poster image url given is only partial and does not contain the base url, so we will combine them
                 String posterPath = props.get("poster_path").getAsString();
-                String movieImageUrl = baseURL+posterPath;
+                String movieImageUrl = imageBaseURL+posterPath;
 
                 mov.setMovie_image_url(movieImageUrl);
 
