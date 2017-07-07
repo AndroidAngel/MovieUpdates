@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.teamandroidangel.iamangelauditor.movieupdates.R.id.list_movie;
@@ -29,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 
-    private     MovieDataAdapter mAdapter;
+    private MovieDataAdapter mAdapter;
 
     private final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185";
+
+    private final int MAIN_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +45,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
 
+
         final GridView gridView = (GridView) findViewById(list_movie);
         mAdapter = new MovieDataAdapter(this, new ArrayList<MovieData>());
         gridView.setAdapter(mAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Log.i(MainActivity.LOG_TAG,"list view created");
+                Intent movieIntent = new Intent(MainActivity.this, DetailActivity.class);
+                MovieData selectedMovieData = (MovieData) parent.getItemAtPosition(position);
 
+                movieIntent.putExtra("item", (Serializable) selectedMovieData);
+                movieIntent.putExtra("itemIndex", position);
+                movieIntent.putExtra("itemId", id);
+                startActivityForResult(movieIntent, MAIN_ACTIVITY_REQUEST_CODE);
 
+            }
+        });
 
         // we will delegate preparing data on this utility class - also this will not be synchronous
-        NetworkUtils.getMovieList(this.MOVIES_ENDPOINT,this.IMAGE_BASE_URL, new CallBackHandler() {
+        NetworkUtils.getMovieList(this.MOVIES_ENDPOINT, this.IMAGE_BASE_URL, new CallBackHandler() {
             @Override
             public void onComplete(ArrayList<MovieData> movies) {
-
 
 
                 //somethign wrong with the imageadapter
@@ -66,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.clear();
                 if (movs != null && !movs.isEmpty()) {
                     mAdapter.addAll(movs);
-                    Log.i(MainActivity.LOG_TAG,"movie retrieved");
+                    Log.i(MainActivity.LOG_TAG, "movie retrieved");
 
 
                 }
@@ -74,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-           @Override
-           public void onComplete(MovieData movieData) {
+            @Override
+            public void onComplete(MovieData movieData) {
 
                 MovieData movs = movieData;
-           }
+            }
+
             @Override
             public void onFail(Throwable t) {
 

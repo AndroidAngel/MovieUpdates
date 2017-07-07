@@ -17,6 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:label="Movie Detail"
+            android:theme="@style/AppTheme"
+            android:name=".DetailActivity">
+        </activity>
     </application>
 
 </manifest>

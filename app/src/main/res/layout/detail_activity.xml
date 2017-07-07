@@ -5,6 +5,14 @@
     android:layout_height="match_parent">
 
 
+
+
+    <ImageView
+        android:id="@+id/movie_image_detail"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_below="@+id/title"/>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -12,4 +20,5 @@
         android:layout_gravity="bottom"
         android:textColor="#fff"
         android:textSize="20dp" />
+
 </FrameLayout>

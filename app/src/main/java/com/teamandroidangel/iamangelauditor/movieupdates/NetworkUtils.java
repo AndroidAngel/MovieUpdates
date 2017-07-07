@@ -29,6 +29,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static okhttp3.Protocol.get;
+
 /**
  * Created by iamangelauditor on 14/06/2017.
  */
@@ -58,7 +60,7 @@ public class NetworkUtils {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 //IMPORTANT THIS IS THE PART THAT DOES THE PARSING
                 JsonObject resp = response.body().getAsJsonObject("results");
-                handler.onComplete(convertJsonToMovieDetail(resp, imageBaseURL));
+                handler.onComplete(convertJsonToMovieDetail(resp, imageBaseURL,baseURL));
 
             }
             @Override
@@ -89,7 +91,7 @@ public class NetworkUtils {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
             //IMPORTANT THIS IS THE PART THAT DOES THE PARSING
                 JsonArray resp = response.body().getAsJsonArray("results");
-                handler.onComplete(convertJsonToMovieList(resp, imageBaseURL));
+                handler.onComplete(convertJsonToMovieList(resp, imageBaseURL, baseURL));
 
             }
             @Override
@@ -98,7 +100,7 @@ public class NetworkUtils {
             }
         });
     }
-    private static MovieData convertJsonToMovieDetail(JsonObject movie, String imageBaseURL){
+    private static MovieData convertJsonToMovieDetail(JsonObject movie, String imageBaseURL, String baseURL){
 
         MovieData mov = new MovieData();
 
@@ -107,13 +109,14 @@ public class NetworkUtils {
         // the poster image url given is only partial and does not contain the base url, so we will combine them
         String posterPath = movie.get("poster_path").getAsString();
         String movieImageUrl = imageBaseURL+posterPath;
-
+        String movieUrl = baseURL + "movie/" + movie.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
+        mov.setMovie_url(movieUrl);
         mov.setMovie_image_url(movieImageUrl);
-
+ //https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
         return mov;
 
     }
-    private static ArrayList<MovieData> convertJsonToMovieList(JsonArray movies, String imageBaseURL) {
+    private static ArrayList<MovieData> convertJsonToMovieList(JsonArray movies, String imageBaseURL, String baseURL) {
 
         ArrayList<MovieData> movs = new ArrayList<>();
 
@@ -133,8 +136,10 @@ public class NetworkUtils {
                 // the poster image url given is only partial and does not contain the base url, so we will combine them
                 String posterPath = props.get("poster_path").getAsString();
                 String movieImageUrl = imageBaseURL+posterPath;
-
+                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
+                mov.setMovie_url(movieUrl);
                 mov.setMovie_image_url(movieImageUrl);
+
 
                 movs.add(mov);
             }
