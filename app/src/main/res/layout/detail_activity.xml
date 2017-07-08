@@ -32,7 +32,7 @@
         android:layout_below="@+id/imagedetail"/>
 
     <TextView
-        android:id="@+id/timeId"
+        android:id="@+id/runtimeId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:background="#FF6E40"
-        android:layout_below="@+id/timeId"/>
+        android:layout_below="@+id/runtimeId"/>
 
 
 

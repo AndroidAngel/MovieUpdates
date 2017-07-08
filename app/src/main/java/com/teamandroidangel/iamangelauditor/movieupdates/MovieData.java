@@ -1,5 +1,7 @@
 package com.teamandroidangel.iamangelauditor.movieupdates;
 
+import android.widget.TextView;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,8 @@ import java.io.Serializable;
 
 public class MovieData extends Object implements Serializable {
 
+    private int runTime;
+
     private String movie_url;
 
     private String releaseDate;
@@ -15,6 +19,10 @@ public class MovieData extends Object implements Serializable {
     private String movie_name;
 
     private String movie_image_url;
+
+    public int getRunTime(int runTime){
+        return this.runTime;
+    }
 
     public String getReleaseDate(String releaseDate){
         return this.releaseDate;
@@ -32,6 +40,10 @@ public class MovieData extends Object implements Serializable {
         return movie_image_url;
     }
 
+    public void setRunTime(int runTime){
+        this.runTime = runTime;
+    }
+
     public void setReleaseDate(String releaseDate){
         this.releaseDate = releaseDate;
     }
@@ -47,4 +59,5 @@ public class MovieData extends Object implements Serializable {
     public void setMovie_url(String movie_url) {
         this.movie_url = movie_url;
     }
+
 }
