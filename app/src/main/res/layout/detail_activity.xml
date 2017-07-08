@@ -1,24 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
+    <TextView
+        android:id="@+id/titlemovie"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:textColor="#FFFFFF"
+        android:background="#26A69A"
+        android:textSize="30dp" />
 
     <ImageView
-        android:id="@+id/movie_image_detail"
-        android:layout_width="210dp"
-        android:layout_height="210dp"
-        android:layout_below="@+id/title"/>
+        android:id="@+id/imagedetail"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/titlemovie"/>
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:id="@+id/yearId"
+        android:text="year"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:textColor="#fff"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:background="#FF6E40"
+        android:layout_below="@+id/imagedetail"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/timeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="time"
+        android:background="#FF6E40"
+        android:layout_below="@+id/yearId"/>
+
+    <TextView
+        android:id="@+id/ratingsId"
+        android:text="ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:background="#FF6E40"
+        android:layout_below="@+id/timeId"/>
+
+
+
+
+
+
+
+
+</RelativeLayout>

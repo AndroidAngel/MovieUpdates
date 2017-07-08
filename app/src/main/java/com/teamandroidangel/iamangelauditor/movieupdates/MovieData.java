@@ -10,9 +10,15 @@ public class MovieData extends Object implements Serializable {
 
     private String movie_url;
 
+    private String releaseDate;
+
     private String movie_name;
 
     private String movie_image_url;
+
+    public String getReleaseDate(String releaseDate){
+        return this.releaseDate;
+    }
 
     public String getMovie_url() {
         return movie_url;
@@ -24,6 +30,10 @@ public class MovieData extends Object implements Serializable {
 
     public String getMovie_image_url() {
         return movie_image_url;
+    }
+
+    public void setReleaseDate(String releaseDate){
+        this.releaseDate = releaseDate;
     }
 
     public void setMovie_image_url(String movie_image_url) {

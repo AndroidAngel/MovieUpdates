@@ -8,6 +8,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
+import static android.R.attr.id;
+
 
 /**
  * Created by iamangelauditor on 14/06/2017.
@@ -21,6 +23,9 @@ public interface MovieDBOrgService {
 
     @GET("movie/{id}?api_key=f05f845199266c1ce950bc8a260a0258")
     Call<JsonObject> getMovieDetail(@Path("id") String id);
+
+
+
 
     // you can add all other api calls here following the standard from: http://square.github.io/retrofit/
 }

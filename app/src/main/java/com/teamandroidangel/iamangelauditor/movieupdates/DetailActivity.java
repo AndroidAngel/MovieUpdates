@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static android.R.attr.name;
 
 /**
@@ -15,6 +18,7 @@ import static android.R.attr.name;
 
 public class DetailActivity extends AppCompatActivity {
 
+    TextView releaseDate;
     TextView nameTitle;
     ImageView movieImageDetail;
     long itemId;
@@ -27,8 +31,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-        nameTitle = (TextView) findViewById(R.id.title);
-        movieImageDetail = (ImageView) findViewById(R.id.movie_image_detail);
+        releaseDate = (TextView)findViewById(R.id.yearId);
+        nameTitle = (TextView) findViewById(R.id.titlemovie);
+        movieImageDetail = (ImageView) findViewById(R.id.imagedetail);
 
 
         item = (MovieData) getIntent().getSerializableExtra("item");
@@ -36,11 +41,18 @@ public class DetailActivity extends AppCompatActivity {
         itemIndex = getIntent().getIntExtra("itemIndex", 0);
         code = getIntent().getIntExtra("code", 0);
 
+        releaseDate.setText(item.getReleaseDate("release_date"));
         nameTitle.setText(item.getMovie_name());
-        Picasso.with(this).load(item.getMovie_url()).into(movieImageDetail);
+        Picasso.with(this).load(item.getMovie_image_url()).into(movieImageDetail);
 
 
-
-
+      
+        Date dateObject = new Date();
+        String formattedDate = formatDate(dateObject);
+        releaseDate.setText(formattedDate);
+    }
+    private String formatDate(Date dateObject){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        return dateFormat.format(dateObject);
     }
 }

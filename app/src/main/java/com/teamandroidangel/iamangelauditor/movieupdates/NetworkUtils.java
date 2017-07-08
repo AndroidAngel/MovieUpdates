@@ -105,14 +105,17 @@ public class NetworkUtils {
         MovieData mov = new MovieData();
 
         mov.setMovie_name(movie.get("title").getAsString());
+        mov.setReleaseDate(movie.get("release_date").getAsString());
 
         // the poster image url given is only partial and does not contain the base url, so we will combine them
+        String releaseDate = movie.get("release_date").getAsString();
         String posterPath = movie.get("poster_path").getAsString();
         String movieImageUrl = imageBaseURL+posterPath;
         String movieUrl = baseURL + "movie/" + movie.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
         mov.setMovie_url(movieUrl);
         mov.setMovie_image_url(movieImageUrl);
- //https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+        mov.getReleaseDate(releaseDate);
+
         return mov;
 
     }
@@ -132,13 +135,16 @@ public class NetworkUtils {
                 //to get a property of the json use props.get("name_of_property").getAsString or getAs whatever data type like getAsInt
 
                 mov.setMovie_name(props.get("title").getAsString());
+                mov.setReleaseDate(props.get("release_date").getAsString());
 
                 // the poster image url given is only partial and does not contain the base url, so we will combine them
+                String releaseDate = props.get("release_date").getAsString();
                 String posterPath = props.get("poster_path").getAsString();
                 String movieImageUrl = imageBaseURL+posterPath;
                 String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
                 mov.setMovie_url(movieUrl);
                 mov.setMovie_image_url(movieImageUrl);
+                mov.getReleaseDate(releaseDate);
 
 
                 movs.add(mov);
