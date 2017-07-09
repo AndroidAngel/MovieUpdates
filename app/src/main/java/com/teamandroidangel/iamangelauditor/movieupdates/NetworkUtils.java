@@ -93,15 +93,12 @@ public class NetworkUtils {
         mov.setReleaseDate(movie.get("release_date").getAsString());
 
         // the poster image url given is only partial and does not contain the base url, so we will combine them
-        int runTime = movie.get("runtime").getAsInt();
-        String releaseDate = movie.get("release_date").getAsString();
+
         String posterPath = movie.get("poster_path").getAsString();
         String movieImageUrl = imageBaseURL+posterPath;
         String movieUrl = baseURL + "movie/" + movie.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
         mov.setMovie_url(movieUrl);
         mov.setMovie_image_url(movieImageUrl);
-        mov.getReleaseDate(releaseDate);
-        mov.getRunTime(runTime);
 
         return mov;
 
@@ -120,20 +117,23 @@ public class NetworkUtils {
 
 
                 //to get a property of the json use props.get("name_of_property").getAsString or getAs whatever data type like getAsInt
-                mov.setRunTime(props.get("runtime").getAsInt());
+ //               mov.setRunTime(props.get("runtime").getAsInt());
                 mov.setMovie_name(props.get("title").getAsString());
+                mov.setVoteAverage(props.get("vote_average").getAsLong());
                 mov.setReleaseDate(props.get("release_date").getAsString());
+                mov.setOverview(props.get("overview").getAsString());
 
                 // the poster image url given is only partial and does not contain the base url, so we will combine them
-                int runTime = props.get("runtime").getAsInt();
+ //               int runTime = props.get("runtime").getAsInt();
                 String releaseDate = props.get("release_date").getAsString();
+                Long voteAverage = props.get("vote_average").getAsLong();
+                String overview = props.get("overview").getAsString();
                 String posterPath = props.get("poster_path").getAsString();
                 String movieImageUrl = imageBaseURL+posterPath;
                 String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
                 mov.setMovie_url(movieUrl);
                 mov.setMovie_image_url(movieImageUrl);
-                mov.getReleaseDate(releaseDate);
-                mov.setRunTime(runTime);
+
 
 
                 movs.add(mov);

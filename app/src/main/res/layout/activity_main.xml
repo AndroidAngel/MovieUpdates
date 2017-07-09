@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+    android:id="@+id/list_movie"
+    android:numColumns="2"
+    android:gravity="center"
+    android:rowCount="2"
+    android:columnWidth="200dp"
+    android:stretchMode="columnWidth"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="com.teamandroidangel.iamangelauditor.movieupdates.MainActivity">
 
-    <GridView
-        android:id="@+id/list_movie"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="fill"
-        android:numColumns="2"
-        android:focusable="true"
-
-        />
-
-
-
-
-</RelativeLayout>
+</GridView>

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         final GridView gridView = (GridView) findViewById(list_movie);
         mAdapter = new MovieDataAdapter(this, new ArrayList<MovieData>());
+
         gridView.setAdapter(mAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

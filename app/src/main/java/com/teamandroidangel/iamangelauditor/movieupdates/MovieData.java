@@ -12,6 +12,10 @@ public class MovieData extends Object implements Serializable {
 
     private int runTime;
 
+    private Long voteAverage;
+
+    private String overview;
+
     private String movie_url;
 
     private String releaseDate;
@@ -20,11 +24,19 @@ public class MovieData extends Object implements Serializable {
 
     private String movie_image_url;
 
-    public int getRunTime(int runTime){
+    public Long getVoteAverage(){
+        return this.voteAverage;
+    }
+
+    public String getOverview(){
+        return this.overview;
+    }
+
+    public int getRunTime(){
         return this.runTime;
     }
 
-    public String getReleaseDate(String releaseDate){
+    public String getReleaseDate(){
         return this.releaseDate;
     }
 
@@ -40,8 +52,16 @@ public class MovieData extends Object implements Serializable {
         return movie_image_url;
     }
 
+    public void setVoteAverage(Long voteAverage){
+        this.voteAverage = voteAverage;
+    }
+
     public void setRunTime(int runTime){
         this.runTime = runTime;
+    }
+
+    public void setOverview(String overview){
+        this.overview = overview;
     }
 
     public void setReleaseDate(String releaseDate){

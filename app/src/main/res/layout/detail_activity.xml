@@ -28,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:background="#FF6E40"
         android:layout_below="@+id/imagedetail"/>
 
     <TextView
@@ -37,17 +36,25 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:text="time"
-        android:background="#FF6E40"
+
         android:layout_below="@+id/yearId"/>
 
     <TextView
-        android:id="@+id/ratingsId"
+        android:id="@+id/voteaverageId"
         android:text="ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:background="#FF6E40"
+
         android:layout_below="@+id/runtimeId"/>
+
+    <TextView
+        android:id="@+id/overviewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="overview"
+        android:layout_below="@+id/voteaverageId"
+        />
 
 
 

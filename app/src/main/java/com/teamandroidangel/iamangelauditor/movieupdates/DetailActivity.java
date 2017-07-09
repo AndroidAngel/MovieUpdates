@@ -17,6 +17,8 @@ import java.util.Date;
 public class DetailActivity extends AppCompatActivity {
 
     TextView runTime;
+    TextView voteAverage;
+    TextView overview;
     TextView releaseDate;
     TextView nameTitle;
     ImageView movieImageDetail;
@@ -30,6 +32,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
+        voteAverage = (TextView)findViewById(R.id.voteaverageId);
+        overview = (TextView)findViewById(R.id.overviewId);
         runTime = (TextView)findViewById(R.id.runtimeId);
         releaseDate = (TextView)findViewById(R.id.yearId);
         nameTitle = (TextView) findViewById(R.id.titlemovie);
@@ -40,19 +44,27 @@ public class DetailActivity extends AppCompatActivity {
         itemId = getIntent().getLongExtra("itemId", 0);
         itemIndex = getIntent().getIntExtra("itemIndex", 0);
         code = getIntent().getIntExtra("code", 0);
+        runTime.setText(Integer.toString(item.getRunTime()));
+        overview.setText(item.getOverview());
+        voteAverage.setText(Long.toString(item.getVoteAverage()));
 
-//        runTime.setText(item.getRunTime("runtime"));
+        releaseDate.setText(item.getReleaseDate());
 
- //       releaseDate.setText(item.getReleaseDate("release_date"));
+
         nameTitle.setText(item.getMovie_name());
         Picasso.with(this).load(item.getMovie_image_url()).into(movieImageDetail);
 
+        String releaseDateString = item.getReleaseDate();
+        Date releaseDateObject = new Date();
+        try {
+            releaseDateObject = new SimpleDateFormat("yyyy-MM-dd").parse(releaseDateString);
+        }catch(java.text.ParseException e){
+            e.printStackTrace();
+        }
+        String formattedDate = formatDate(releaseDateObject);
 
-        Date dateObject = new Date();
-        String formattedDate = formatDate(dateObject);
-        String formattedTime = formatTime(dateObject);
         releaseDate.setText(formattedDate);
-        runTime.setText(formattedTime);
+
     }
     private String formatDate(Date dateObject){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
