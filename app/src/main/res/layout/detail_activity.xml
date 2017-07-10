@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <TextView
         android:id="@+id/titlemovie"
@@ -11,54 +10,76 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:background="#F4511E"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:background="#26A69A"
         android:textSize="30dp" />
 
-    <ImageView
-        android:id="@+id/imagedetail"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/titlemovie"/>
-
-    <TextView
-        android:id="@+id/yearId"
-        android:text="year"
+    <LinearLayout
+        android:layout_below="@+id/titlemovie"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_below="@+id/imagedetail"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/runtimeId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="time"
 
-        android:layout_below="@+id/yearId"/>
+        <ImageView
+            android:id="@+id/imagedetail"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="12dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/voteaverageId"
-        android:text="ratings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
+    </LinearLayout>
 
-        android:layout_below="@+id/runtimeId"/>
+        <LinearLayout
+            android:id="@+id/linearTwo"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/titlemovie"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="70dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/yearId"
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/runtimeId"
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/yearId"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/voteaverageId"
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/runtimeId"
+                android:textSize="20dp" />
+
+
+        </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/overviewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="overview"
-        android:layout_below="@+id/voteaverageId"
+        android:textColor="#000000"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+
+
         />
-
-
-
-
 
 
 

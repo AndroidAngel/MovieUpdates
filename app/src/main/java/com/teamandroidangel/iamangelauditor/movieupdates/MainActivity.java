@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private final String API_KEY = "f05f845199266c1ce950bc8a260a0258";
+    private final String API_KEY = "00000000000000";
 
     private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 

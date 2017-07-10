@@ -18,10 +18,10 @@ import static android.R.attr.id;
 public interface MovieDBOrgService {
 
     //get all popular movies, other APIs will follow the same procedure
-    @GET("movie/popular?api_key=f05f845199266c1ce950bc8a260a0258")
+    @GET("movie/popular?api_key=00000000000000")
     Call<JsonObject> listPopularMovies();
 
-    @GET("movie/{id}?api_key=f05f845199266c1ce950bc8a260a0258")
+    @GET("movie/{id}?api_key=00000000000000")
     Call<JsonObject> getMovieDetail(@Path("id") String id);
 
 
