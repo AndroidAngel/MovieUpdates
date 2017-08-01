@@ -1,7 +1,22 @@
 <resources>
     <string name="app_name">Movie Updates</string>
 
-    <string name="action_refresh">Refresh</string>
-    <string name="error_message">error_message</string>
-    <string name="hello_world">hello world</string>
+    <string name="popular_movie">Popular</string>
+    <string name="highest_rated">Top Rated</string>
+
+    <string name="no_internet_connection">No internet connection.</string>
+
+
+
+    <!--Detail Activity-->
+    <string name="title_of_the_movie">title Of The Movie</string>
+    <string name="image_of_the_movie_in_detail_activity">image Of The Movie In Detail Activity</string>
+    <string name="overview_of_the_movie">Overview_of_the_Movie</string>
+    <string name="released_year_of_the_movie">Released_Year_of_the_Movie</string>
+    <string name="mark_as_favorite">Mark as favorite</string>
+    <string name="xxxxxxxxxxxxxxxxxxxxxxdaslhjfha_jkbakfjabfjdbfkdjfbdkjfbdkfbdkfabfkhbvddffsdbdsakdaskjdb_dsahdjndjfndndndndfndlfndljnfdjfndsjfndvndsjvnjdnvsdj">xxxxxxxxxxxxxxxxxxxxxxdaslhjfha jkbakfjabfjdbfkdjfbdkjfbdkfbdkfabfkhbvddffsdbdsakdaskjdb dsahdjndjfndndndndfndlfndljnfdjfndsjfndvndsjvnjdnvsdj</string>
+    <string name="_10_8_9">10/8.9</string>
+    <string name="_150mins">150mins</string>
+    <string name="_2015">2015</string>
+    <string name="title">title</string>
 </resources>

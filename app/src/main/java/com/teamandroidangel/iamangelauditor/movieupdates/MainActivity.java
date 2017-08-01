@@ -2,6 +2,7 @@ package com.teamandroidangel.iamangelauditor.movieupdates;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private final String API_KEY = "00000000000000";
+    private final String API_KEY = "000000000";
 
     private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 
     private final int MAIN_ACTIVITY_REQUEST_CODE = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent movieIntent = new Intent(MainActivity.this, DetailActivity.class);
                 MovieData selectedMovieData = (MovieData) parent.getItemAtPosition(position);
 
-                movieIntent.putExtra("item", (Serializable) selectedMovieData);
+                movieIntent.putExtra("item", selectedMovieData);
                 movieIntent.putExtra("itemIndex", position);
                 movieIntent.putExtra("itemId", id);
                 startActivityForResult(movieIntent, MAIN_ACTIVITY_REQUEST_CODE);
@@ -104,22 +108,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuInflater inflater =getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemThatWasClickedId = item.getItemId();
-        if (itemThatWasClickedId == R.id.action_refresh) {
-            Context context = MainActivity.this;
-            String textToShow = "Refreshing";
-            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.popular_movie:
+                return true;
+            case R.id.top_rated:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 }
+
 
 
 

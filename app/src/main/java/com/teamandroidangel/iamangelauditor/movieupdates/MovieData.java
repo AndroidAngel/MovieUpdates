@@ -1,5 +1,6 @@
 package com.teamandroidangel.iamangelauditor.movieupdates;
 
+
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -10,19 +11,20 @@ import java.io.Serializable;
 
 public class MovieData extends Object implements Serializable {
 
-    private int runTime;
 
-    private Long voteAverage;
+    public int runTime;
 
-    private String overview;
+    public Long voteAverage;
 
-    private String movie_url;
+    public String overview;
 
-    private String releaseDate;
+    public String movie_url;
 
-    private String movie_name;
+    public String releaseDate;
 
-    private String movie_image_url;
+    public String movie_name;
+
+    public String movie_image_url;
 
     public Long getVoteAverage(){
         return this.voteAverage;

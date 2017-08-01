@@ -67,6 +67,8 @@ public class NetworkUtils {
         // let's instantiate a service from the interface defined MovieDBOrgService
         MovieDBOrgService service = retrofit.create(MovieDBOrgService.class);
 
+
+
         // call list Popular movies
         Call<JsonObject> call = service.listPopularMovies();
 
@@ -83,6 +85,26 @@ public class NetworkUtils {
                 handler.onFail(t);
             }
         });
+
+        // TOP_RATED
+
+//        call = service.listTopRatedMovies();
+//        call.enqueue(new Callback<JsonObject>() {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                JsonArray resp = response.body().getAsJsonArray("results");
+//                handler.onComplete(convertJsonToMovieList(resp, imageBaseURL, baseURL));
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//                handler.onFail(t);
+//
+//            }
+//        });
+
     }
     private static MovieData convertJsonToMovieDetail(JsonObject movie, String imageBaseURL, String baseURL){
 
@@ -96,7 +118,7 @@ public class NetworkUtils {
 
         String posterPath = movie.get("poster_path").getAsString();
         String movieImageUrl = imageBaseURL+posterPath;
-        String movieUrl = baseURL + "movie/" + movie.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
+        String movieUrl = baseURL + "movie/" + movie.get("id").getAsString()+ "the_movie_db_api_key";
         mov.setMovie_url(movieUrl);
         mov.setMovie_image_url(movieImageUrl);
 
@@ -118,6 +140,7 @@ public class NetworkUtils {
 
                 //to get a property of the json use props.get("name_of_property").getAsString or getAs whatever data type like getAsInt
  //               mov.setRunTime(props.get("runtime").getAsInt());
+
                 mov.setMovie_name(props.get("title").getAsString());
                 mov.setVoteAverage(props.get("vote_average").getAsLong());
                 mov.setReleaseDate(props.get("release_date").getAsString());
@@ -125,12 +148,13 @@ public class NetworkUtils {
 
                 // the poster image url given is only partial and does not contain the base url, so we will combine them
  //               int runTime = props.get("runtime").getAsInt();
+
                 String releaseDate = props.get("release_date").getAsString();
                 Long voteAverage = props.get("vote_average").getAsLong();
                 String overview = props.get("overview").getAsString();
                 String posterPath = props.get("poster_path").getAsString();
                 String movieImageUrl = imageBaseURL+posterPath;
-                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
+                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=000000000";
                 mov.setMovie_url(movieUrl);
                 mov.setMovie_image_url(movieImageUrl);
 
