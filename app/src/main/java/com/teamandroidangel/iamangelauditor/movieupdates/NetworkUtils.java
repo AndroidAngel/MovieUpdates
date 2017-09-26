@@ -33,7 +33,7 @@ public class NetworkUtils {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // let's instantiate a service from the interface defined MovieDBOrgService
+        //  instantiate a service from the interface defined MovieDBOrgService
         MovieDBOrgService service = retrofit.create(MovieDBOrgService.class);
 
         // call list Popular movies
@@ -57,14 +57,14 @@ public class NetworkUtils {
 
     public static void getMovieList(final String baseURL,final String imageBaseURL, final CallBackHandler handler) {
 
-        // let's use retrofit for simplicity
+
         // a retrofit api call builder needs the base url
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // let's instantiate a service from the interface defined MovieDBOrgService
+        // instantiate a service from the interface defined MovieDBOrgService
         MovieDBOrgService service = retrofit.create(MovieDBOrgService.class);
 
 
@@ -86,24 +86,6 @@ public class NetworkUtils {
             }
         });
 
-        // TOP_RATED
-
-//        call = service.listTopRatedMovies();
-//        call.enqueue(new Callback<JsonObject>() {
-//            @Override
-//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                JsonArray resp = response.body().getAsJsonArray("results");
-//                handler.onComplete(convertJsonToMovieList(resp, imageBaseURL, baseURL));
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JsonObject> call, Throwable t) {
-//                handler.onFail(t);
-//
-//            }
-//        });
 
     }
     private static MovieData convertJsonToMovieDetail(JsonObject movie, String imageBaseURL, String baseURL){
@@ -114,7 +96,7 @@ public class NetworkUtils {
         mov.setMovie_name(movie.get("title").getAsString());
         mov.setReleaseDate(movie.get("release_date").getAsString());
 
-        // the poster image url given is only partial and does not contain the base url, so we will combine them
+        // the poster image url given is only partial and does not contain the base url, combine
 
         String posterPath = movie.get("poster_path").getAsString();
         String movieImageUrl = imageBaseURL+posterPath;
@@ -146,7 +128,7 @@ public class NetworkUtils {
                 mov.setReleaseDate(props.get("release_date").getAsString());
                 mov.setOverview(props.get("overview").getAsString());
 
-                // the poster image url given is only partial and does not contain the base url, so we will combine them
+                // the poster image url given is only partial and does not contain the base url, combine
  //               int runTime = props.get("runtime").getAsInt();
 
                 String releaseDate = props.get("release_date").getAsString();
@@ -154,7 +136,7 @@ public class NetworkUtils {
                 String overview = props.get("overview").getAsString();
                 String posterPath = props.get("poster_path").getAsString();
                 String movieImageUrl = imageBaseURL+posterPath;
-                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=000000000";
+                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=0";
                 mov.setMovie_url(movieUrl);
                 mov.setMovie_image_url(movieImageUrl);
 

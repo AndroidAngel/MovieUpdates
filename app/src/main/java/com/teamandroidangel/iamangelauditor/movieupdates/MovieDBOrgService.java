@@ -18,19 +18,16 @@ import static android.R.attr.id;
 public interface MovieDBOrgService {
 
     //get all popular movies, other APIs will follow the same procedure
-    @GET("http://api.themoviedb.org/3/movie/popular?api_key=000000000")
+    @GET("http://api.themoviedb.org/3/movie/popular?api_key=0")
     Call<JsonObject> listPopularMovies();
 
-    @GET("movie/{id}?api_key=000000000")
+    @GET("movie/{id}?api_key=0")
     Call<JsonObject> getMovieDetail(@Path("id") String id);
 
-    @GET("http://api.themoviedb.org/3/movie/top_rated?api_key=000000000")
+    @GET("http://api.themoviedb.org/3/movie/top_rated?api_key=0")
     Call<JsonObject> listTopRatedMovies();
 
 
-
-
-    // you can add all other api calls here following the standard from: http://square.github.io/retrofit/
 }
 
 

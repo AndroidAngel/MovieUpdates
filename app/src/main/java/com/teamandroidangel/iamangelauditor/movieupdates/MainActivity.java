@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private final String API_KEY = "000000000";
+    private final String API_KEY = "000";
 
     private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 
@@ -69,17 +69,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // we will delegate preparing data on this utility class - also this will not be synchronous
         NetworkUtils.getMovieList(this.MOVIES_ENDPOINT, this.IMAGE_BASE_URL, new CallBackHandler() {
             @Override
             public void onComplete(ArrayList<MovieData> movies) {
 
 
-                //somethign wrong with the imageadapter
-                //ImageAdapter mAdapter = new ImageAdapter(getApplicationContext(),movies);
-                //recyclerView.setAdapter(mAdapter);
-
-                // this list contains all your movies
                 ArrayList<MovieData> movs = movies;
                 mAdapter.clear();
                 if (movs != null && !movs.isEmpty()) {

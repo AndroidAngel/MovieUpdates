@@ -42,19 +42,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-     //   mBinding = DataBindingUtil.setContentView(this, R.layout.detail_activity);
-       // MovieData movieDataInfo = NetworkUtils.movs();
-        //displayMovieDataInfo(movieDataInfo);
-
-
-//    private void displayMovieDataInfo(MovieData info){
-//
-//        mBinding.titleMovie.setText(info.movie_name);
-//        mBinding.yearId.setText(info.releaseDate);
-//        mBinding.runtimeId.setText(info.runTime);
-//        mBinding.voteAverageId.setText(info.voteAverage.toString());
-//        mBinding.overviewId.setText(info.overview);
-
         voteAverage = (TextView)findViewById(R.id.voteAverageId);
         overview = (TextView)findViewById(R.id.overviewId);
         runTime = (TextView)findViewById(R.id.runtimeId);
