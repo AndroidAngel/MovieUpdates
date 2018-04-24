@@ -136,7 +136,7 @@ public class NetworkUtils {
                 String overview = props.get("overview").getAsString();
                 String posterPath = props.get("poster_path").getAsString();
                 String movieImageUrl = imageBaseURL+posterPath;
-                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=0";
+                String movieUrl = baseURL + "movie/" + props.get("id").getAsString()+ "?api_key=f05f845199266c1ce950bc8a260a0258";
                 mov.setMovie_url(movieUrl);
                 mov.setMovie_image_url(movieImageUrl);
 

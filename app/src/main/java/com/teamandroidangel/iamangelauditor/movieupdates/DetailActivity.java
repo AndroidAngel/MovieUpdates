@@ -1,22 +1,15 @@
 package com.teamandroidangel.iamangelauditor.movieupdates;
 
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.teamandroidangel.iamangelauditor.movieupdates.databinding.DetailActivityBinding;
-import com.teamandroidangel.iamangelauditor.movieupdates.NetworkUtils;
-
-
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * Created by iamangelauditor on 03/07/2017.
@@ -62,7 +55,10 @@ public class DetailActivity extends AppCompatActivity {
 
 
         nameTitle.setText(item.getMovie_name());
-        Picasso.with(this).load(item.getMovie_image_url()).into(movieImageDetail);
+        Picasso.get().load(item.getMovie_image_url()).into(movieImageDetail);
+
+
+//        Picasso.with(this).load(item.getMovie_image_url()).into(movieImageDetail);
 
         String releaseDateString = item.getReleaseDate();
         Date releaseDateObject = new Date();

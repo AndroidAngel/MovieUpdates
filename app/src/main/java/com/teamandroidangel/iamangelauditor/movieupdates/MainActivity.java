@@ -1,13 +1,8 @@
 package com.teamandroidangel.iamangelauditor.movieupdates;
 
-import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,10 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.teamandroidangel.iamangelauditor.movieupdates.R.id.list_movie;
@@ -28,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private final String API_KEY = "000";
+    private final String API_KEY = "f05f845199266c1ce950bc8a260a0258";
 
     private final String MOVIES_ENDPOINT = "https://api.themoviedb.org/3/";
 
